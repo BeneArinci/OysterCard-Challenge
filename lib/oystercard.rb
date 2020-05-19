@@ -1,5 +1,6 @@
-class Oystercard
+# frozen_string_literal: true
 
+class Oystercard
   attr_reader :balance, :injourney
 
   MAXBALANCE = 90
@@ -11,12 +12,9 @@ class Oystercard
 end
 
   def top_up(money)
+    raise 'Exceeded top up limit' if (@balance + money) > MAXBALANCE
 
-    if (@balance + money) > MAXBALANCE
-
-      raise "Exceeded top up limit"
-    end
-      @balance = @balance + money
+    @balance += money
   end
 
   def fare
@@ -32,11 +30,6 @@ end
   end
 
   def in_journey?
-    if @injourney == true
-      true
-    else
-      false
-    end
+    @injourney
   end
-
 end
