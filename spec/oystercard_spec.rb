@@ -13,7 +13,6 @@ describe Oystercard do
     expect(subject.instance_variable_get(:@injourney)).to eq(false)
   end
 
-
   context 'top up' do
     it 'tops up the card' do
       test_variable = Oystercard.new
@@ -26,25 +25,21 @@ describe Oystercard do
     end
   end
 
-  context 'fare' do
-    it 'deducts the fare from the balance' do
-      test_variable = Oystercard.new
-      test_variable.top_up(10)
-      expect(test_variable.fare).to eq(9)
-    end
-  end
-
   context 'barriers' do
     it 'makes a customer be in journey' do
       expect(Oystercard.new(10).touch_in).to eq(true)
     end
 
     it 'raise error when touch in and balance is less than minimum amount' do
-      expect{Oystercard.new.touch_in}.to raise_error('Insufficient funds')
+      expect { Oystercard.new.touch_in }.to raise_error('Insufficient funds')
     end
 
     it 'knows if a card has been touched out and interupt the journey' do
       expect(subject.touch_out).to eq(false)
+    end
+
+    it 'reduces balance by the fare amount when touched out' do
+      expect { subject.touch_out }.to change { subject.balance }.by(-Oystercard::FARE)
     end
 
     it 'knows if a card is currently in journey' do

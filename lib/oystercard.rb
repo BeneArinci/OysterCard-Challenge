@@ -18,21 +18,28 @@ class Oystercard
     @balance += money
   end
 
-  def fare
-    @balance -= FARE
-  end
-
   def touch_in
-    raise 'Insufficient funds' if (@balance < FARE)
+    raise 'Insufficient funds' if insufficient_funds?
 
     @injourney = true
   end
 
   def touch_out
+    fare
     @injourney = false
   end
 
   def in_journey?
     @injourney
+  end
+
+  private
+
+  def fare
+    @balance -= FARE
+  end
+
+  def insufficient_funds?
+    @balance < FARE
   end
 end
