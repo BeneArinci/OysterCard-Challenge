@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Oystercard
-  attr_reader :balance, :injourney
+  attr_reader :balance, :entry_station
 
   MAXBALANCE = 90
   FARE = 1
@@ -9,7 +9,6 @@ class Oystercard
 
   def initialize(balance = DEFAULT_BALANCE)
     @balance = balance
-    @injourney = false
   end
 
   def top_up(money)
@@ -18,19 +17,19 @@ class Oystercard
     @balance += money
   end
 
-  def touch_in
+  def touch_in(entry_station)
     raise 'Insufficient funds' if insufficient_funds?
+    @entry_station = entry_station
 
-    @injourney = true
   end
 
   def touch_out
     fare
-    @injourney = false
+    @entry_station = nil
   end
 
   def in_journey?
-    @injourney
+    !!@entry_station
   end
 
   private
