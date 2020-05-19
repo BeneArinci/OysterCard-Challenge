@@ -5,11 +5,12 @@ class Oystercard
 
   MAXBALANCE = 90
   FARE = 1
+  DEFAULT_BALANCE = 0
 
-  def initialize
-    @balance = 0
+  def initialize(balance = DEFAULT_BALANCE)
+    @balance = balance
     @injourney = false
-end
+  end
 
   def top_up(money)
     raise 'Exceeded top up limit' if (@balance + money) > MAXBALANCE
@@ -22,6 +23,8 @@ end
   end
 
   def touch_in
+    raise 'Insufficient funds' if (@balance < FARE)
+
     @injourney = true
   end
 
