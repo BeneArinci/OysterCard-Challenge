@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require './lib/station.rb'
 
 class Oystercard
   attr_reader :balance, :entry_station, :journey
