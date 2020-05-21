@@ -17,17 +17,6 @@ describe Journey do
     expect(journey.start_journey(entry_station)).to eq(entry_station)
   end
 
-  it 'should end a journey' do
-    journey.start_journey(entry_station)
-    journey.end_journey(exit_station)
-    expect(journey).not_to be_in_journey
-  end
-
-  it 'should know when it is in journey' do
-    journey.start_journey(entry_station)
-    expect(journey).to be_in_journey
-  end
-
   it 'should initialize with an empty array' do
     expect(journey.journeys).to be_empty
   end
@@ -36,6 +25,16 @@ describe Journey do
     journey.start_journey(entry_station)
     journey.end_journey(exit_station)
     expect(journey.journeys).to eq([journeys])
+  end
+
+  it 'should know if a journey is complete' do
+    journey.start_journey(entry_station)
+    journey.end_journey(exit_station)
+    expect(journey).to be_complete
+  end
+
+  it 'should know if a journey is not complete' do
+    expect(journey).not_to be_complete
   end
 
 end

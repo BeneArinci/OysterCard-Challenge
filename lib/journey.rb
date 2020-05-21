@@ -16,11 +16,14 @@ class Journey
   def end_journey(exit_station)
     @exit_station = exit_station
     @journeys << {entry_station: @entry_station, exit_station: @exit_station}
-    @entry_station = nil
   end
 
-  def in_journey?
-    !!@entry_station
+  def complete?
+    if @journeys[-1] == {entry_station: @entry_station, exit_station: @exit_station}
+      true
+    else
+      false
+    end
   end
 
   def fare
