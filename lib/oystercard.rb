@@ -28,10 +28,6 @@ class Oystercard
     @journey.end_journey(exit_station)
   end
 
-  def in_journey?
-    !!@entry_station
-  end
-
   def fare
     @balance -= @journey.fare
   end

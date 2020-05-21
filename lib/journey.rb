@@ -19,18 +19,11 @@ class Journey < Oystercard
   end
 
   def complete?
-    if @journeys[-1] == {entry_station: @entry_station, exit_station: @exit_station}
-      true
-    else
-      false
-    end
+    @journeys[-1] == {entry_station: @entry_station, exit_station: @exit_station} ? true : false
   end
+  
   def fare
-    if complete?
-      MIN_FARE
-    else
-      PENALTY_FARE
-    end
+    complete? ? MIN_FARE : PENALTY_FARE
   end
 
 end
