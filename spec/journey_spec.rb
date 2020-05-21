@@ -33,6 +33,14 @@ describe Journey do
     expect(journey).to be_complete
   end
 
+  it 'should store multiple journey' do
+    journey.start_journey(entry_station)
+    journey.end_journey(exit_station)
+    journey.start_journey(entry_station)
+    journey.end_journey(exit_station)
+    expect(journey.journeys).to eq([journeys, journeys])
+  end
+
   it 'should know if a journey is not complete' do
     expect(journey).not_to be_complete
   end

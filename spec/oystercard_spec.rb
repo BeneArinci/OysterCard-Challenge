@@ -28,29 +28,15 @@ describe Oystercard do
       expect(money_card.touch_in(station)).to eq(station)
     end
 
-    it 'reduces balance by the fare amount when touched out' do
-      expect { card.touch_out(station_exit) }.to change { card.balance }.by(-Oystercard::FARE)
-    end
     it 'accepts entry station' do
       money_card.touch_in(station)
       money_card.touch_out(station_exit)
       expect(money_card.entry_station).nil?
     end
 
-    it 'knows if a card is currently in journey' do
+    it 'stores entry and exit station in a hash' do
       money_card.touch_in(station)
-      expect(money_card).to be_in_journey
-    end
-
-    it 'knows if a card is not currently in use' do
-      money_card.touch_out(station_exit)
-      expect(money_card).not_to be_in_journey
-    end
-
-    it 'stores entry and exit station in  a hash' do
-      money_card.touch_in(station)
-      money_card.touch_out(station_exit)
-      expect(money_card.journey).to eq({ 'entry_station' => station, 'exit_station' => station_exit })
+      expect(money_card.touch_out(station_exit)).to eq([{ entry_station: station, exit_station: station_exit }])
     end
   end
 end

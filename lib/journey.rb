@@ -1,5 +1,5 @@
 require_relative 'oystercard'
-class Journey
+class Journey < Oystercard
   attr_reader :journeys
 
   MIN_FARE = 1
@@ -25,9 +25,12 @@ class Journey
       false
     end
   end
-
   def fare
-    
+    if complete?
+      MIN_FARE
+    else
+      PENALTY_FARE
+    end
   end
 
 end
